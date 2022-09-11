@@ -1,0 +1,21 @@
+name: build
+
+on:
+  pull_request: {}
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: Flaminel/umbrella-workflows-test/.github/workflows/build.yml@main
+    with:
+      dockerRepository: flaminel/testing
+      repository: ${{ github.repository }}
+      githubSha: ${{ github.sha }}
+      githubRef: ${{ github.ref }}
+      githubHeadRef: ${{ github.head_ref }}
+      pullRequestNumber: ${{ github.event.pull_request.number }}
+    secrets:
+      PAT: ${{ secrets.PAT }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
