@@ -12,3 +12,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 WORKDIR /app
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "testing.dll"]
+
+ # TODO rename presentation project to something generic for both apis and workers so I can have a generic docker file

@@ -10,12 +10,9 @@ jobs:
     uses: Flaminel/umbrella-workflows-test/.github/workflows/build.yml@main
     with:
       dockerRepository: flaminel/testing
-      # repository: ${{ github.repository }}
-      # githubSha: ${{ github.sha }}
-      # githubRef: ${{ github.ref }}
-      # githubHeadRef: ${{ github.head_ref }}
-      # pullRequestNumber: ${{ github.event.pull_request.number }}
       githubContext: ${{ toJSON(github) }}
+      appName: testing
+      baseImage: 6.0-alpine
     secrets:
       PAT: ${{ secrets.PAT }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
