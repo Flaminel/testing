@@ -1,4 +1,4 @@
-name: build
+name: Build
 
 on:
   pull_request: {}
@@ -7,12 +7,11 @@ on:
 
 jobs:
   build:
-    uses: Flaminel/umbrella-workflows-test/.github/workflows/build.yml@main
+    uses: Flaminel/umbrella-workflows-test/.github/workflows/dotnet.build.app.yml@main
     with:
       dockerRepository: flaminel/testing
       githubContext: ${{ toJSON(github) }}
-      appName: testing
-      baseImage: 6.0-alpine
+      executableName: testing
     secrets:
       PAT: ${{ secrets.PAT }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
