@@ -1,0 +1,18 @@
+name: Build
+
+on:
+  pull_request: {}
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: Flaminel/umbrella-workflows-test/.github/workflows/dotnet.build.app.yml@main
+    with:
+      dockerRepository: flaminel/testing
+      githubContext: ${{ toJSON(github) }}
+      executableName: testing
+    secrets:
+      PAT: ${{ secrets.PAT }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

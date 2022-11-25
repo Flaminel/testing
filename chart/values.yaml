@@ -1,0 +1,28 @@
+nameOverride: testing
+
+deployment:
+  replicas: 1
+  strategy:
+    type: "RollingUpdate"
+    maxSurge: 1
+    maxUnavailable: 1
+  containers:
+    -
+      name: testing-container
+      image:
+        repository: flaminel/testing
+        tag: pull-1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 100m
+          memory: 256Mi
+
+secrets:
+  -
+    name: test
+    type: Opaque
+    data:
+      key: $EncryptionKey
