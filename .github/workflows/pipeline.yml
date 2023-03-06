@@ -1,0 +1,16 @@
+on:
+  pull_request: {}
+  push:
+    paths:
+      - 'code/**'
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: Flaminel/testing/.github/workflows/build.yml@main
+    secrets: inherit
+
+  deploy:
+    needs: [ build ]
+    uses: Flaminel/testing/.github/workflows/deploy.yml@main
+    secrets: inherit
