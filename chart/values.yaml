@@ -1,0 +1,55 @@
+nameOverride: testing
+
+deployment:
+  replicas: 1
+  strategy:
+    type: "RollingUpdate"
+    maxSurge: 1
+    maxUnavailable: 1
+  containers:
+    -
+      name: testing-container
+      image:
+        repository: flaminel/testing
+        tag: pull-1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 100m
+          memory: 256Mi
+      ports:
+        -
+          name: http
+          containerPort: 8080
+
+ingress:
+  name: ingress
+  hosts:
+    -
+      host: testing.mariusne.com
+      paths:
+        -
+          path: "/"
+          pathType: Prefix
+          serviceName: service
+          servicePort: http
+
+services:
+  -
+    name: service
+    type: ClusterIP
+    ports:
+      -
+        name: http
+        protocol: TCP
+        port: 80
+        targetPort: 8080
+
+secrets:
+  -
+    name: test
+    type: Opaque
+    data:
+      key: $EncryptionKey
