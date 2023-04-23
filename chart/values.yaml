@@ -19,6 +19,33 @@ deployment:
         limits:
           cpu: 100m
           memory: 256Mi
+      ports:
+        -
+          name: http
+          containerPort: 8080
+
+ingress:
+  name: ingress
+  hosts:
+    -
+      host: testing.mariusne.com
+      paths:
+        -
+          path: "/"
+          pathType: Prefix
+          serviceName: service
+          servicePort: http
+
+services:
+  -
+    name: service
+    type: ClusterIP
+    ports:
+      -
+        name: http
+        protocol: TCP
+        port: 80
+        targetPort: 8080
 
 secrets:
   -
